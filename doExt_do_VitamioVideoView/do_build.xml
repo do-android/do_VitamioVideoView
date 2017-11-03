@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="DoExtBuild">
+	<property name="projectName" value="do_VitamioVideoView"/>
+	<property name="buildDir" value="build"/>
+	<property name="src" value="src/doext" />
+	<property name="classes" value="${buildDir}/classes" />
+	<!-- 替换为您本地Android路径JAR-->
+	<property name="androidJAR" value="E:/sdk/platforms/android-16/android.jar"/>
+
+	<target name="init">
+		<delete dir="${projectName}.zip"/>
+		<echo>mkdir dir</echo>
+		<mkdir dir="${buildDir}"/>
+		<mkdir dir="${classes}"/>
+		<mkdir dir="${buildDir}/libs" />
+		<mkdir dir="${buildDir}/res"/>
+	</target>
+	
+	<path id="android.classpath">
+        <pathelement location="${androidJAR}"/>
+    </path>
+
+	<target name="compile" depends="init" description="comile target">
+		<javac deprecation="on" debug="on" srcdir="${src}" destdir="${classes}" includeantruntime="true" encoding="UTF-8">
+			<classpath>
+				<fileset dir="libs">
+					<include name="*.jar" />
+				</fileset>
+				<path refid="android.classpath"></path>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="doExt" depends="compile">
+		<echo>compile jar</echo>
+		<jar destfile="${buildDir}/${projectName}.jar" basedir="${classes}"/>
+		<delete dir="${classes}"/>
+	</target>
+
+	<target name="cLibs">
+		<echo>copying libs...</echo>
+		<copydir dest="${buildDir}/libs" src="libs">
+			<exclude name="**/android-support-v4.jar"/>
+			<exclude name="**/doExt_Do_WebView.jar"/>
+			<exclude name="**/docore.jar"/>
+		</copydir>
+	</target>
+	
+	<target name="cAssets">
+	    <available file="assets" property="assetsExist"/> 
+        <antcall target="isTrue"></antcall>
+	</target>
+	
+	<target name="isTrue" if="assetsExist">
+	    <echo>copying asstes...</echo>
+        <copydir dest="${buildDir}/assets" src="assets"/>
+    </target>
+	
+	<target name="cRes">
+		<echo>copying res...</echo>
+		<copydir dest="${buildDir}/res" src="res">
+			<exclude name="**/*deviceone*"/>
+		</copydir>
+	</target>
+	
+	<target name="cManifest">
+		<echo>copying manifest.xml</echo>
+		<copy tofile="${buildDir}/AndroidManifest.xml">
+		     <fileset dir="./" includes="AndroidManifest.xml" />
+		</copy>
+	</target>
+	
+    <target name="package">
+        <zip destfile="${projectName}.zip" duplicate="preserve">  
+            <zipfileset dir="${buildDir}" includes="**/*.*" />  
+        </zip> 
+    	<delete dir="${buildDir}"/>
+    </target> 
+	
+	<target name="build" depends="doExt" >
+	    <antcall target="cAssets"/>
+		<antcall target="cRes"/>
+		<antcall target="cLibs"/>
+		<antcall target="cManifest"/>
+		<antcall target="package"/>
+	</target>
+</project>

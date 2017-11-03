@@ -1,0 +1,102 @@
+{
+  "ID": "do_VitamioVideoView",
+  "IsContainer": "0",
+  "Type": "UI",
+  "Name": "播放视频控件",
+  "Version": "Internal",
+  "Description": "集成Vitamio多媒体开发框架，全面支持硬件解码与 GPU 渲染。支持MKV，FLV，MP4，MOV，TS，RMVB等常见格式的视频，还可以在 Android 与 iOS 上跨平台支持 MMS, RTSP, RTMP, HLS(m3u8) 等常见的多种视频流媒体协议，包括点播与直播。具体参见文档：https://www.vitamio.org/docs/",
+  "Icon": "",
+  "IOS": {
+    "Support": 0,
+    "MinVersion": ""
+  },
+  "Android": {
+    "Support": 0,
+    "MinVersion": ""
+  },
+  "Windows": {
+    "Support": 0,
+    "MinVersion": ""
+  },
+  "WindowsPhone": {
+    "Support": 0,
+    "MinVersion": ""
+  },
+  "Html": {
+    "Support": 1,
+    "MinVersion": "5.0"
+  },
+  "Properties": [
+    {
+      "ID": "path",
+      "Name": "播放文件源路径",
+      "Type": "String",
+      "DefaultValue": "",
+      "EditType": "1",
+      "Group": "",
+      "Description": "支持data://、source://和网络地址",
+      "Design": {
+        "Type": "FileSource",
+        "Data": []
+      }
+    }
+  ],
+  "Events": [
+    {
+      "ID": "error",
+      "Description": "视频播放异常时触发",
+      "ReturnType": "String",
+      "ReturnDesc": ""
+    },
+    {
+      "ID": "finished",
+      "Description": "视频播放完后触发",
+      "ReturnType": "String",
+      "ReturnDesc": ""
+    }
+  ],
+  "syncMethodes": [
+    {
+      "ID": "pause",
+      "Name": "暂停播放",
+      "Description": "",
+      "ReturnType": "Number",
+      "ReturnDesc": "返回当前视频暂停时的位置，毫秒值",
+      "Paras": []
+    },
+    {
+      "ID": "play",
+      "Name": "开始播放",
+      "Description": "",
+      "ReturnType": "",
+      "ReturnDesc": "",
+      "Paras": [
+        {
+          "ID": "point",
+          "Name": "播放起点",
+          "Type": "Number",
+          "Required": 0,
+          "DefaultValue": "",
+          "Description": "从视频中的某一点开始播放，毫秒值"
+        }
+      ]
+    },
+    {
+      "ID": "resume",
+      "Name": "继续播放",
+      "Description": "",
+      "ReturnType": "",
+      "ReturnDesc": "",
+      "Paras": []
+    },
+    {
+      "ID": "stop",
+      "Name": "停止播放",
+      "Description": "",
+      "ReturnType": "",
+      "ReturnDesc": "",
+      "Paras": []
+    }
+  ],
+  "asyncMethodes": []
+}

@@ -1,0 +1,9 @@
+*.class
+*.apk
+bin/
+gen/
+.settings/
+proguard/
+*.classpath
+/doExt_do_VitamioVideoView/do_VitamioVideoView.zip
+/doExt_do_VitamioVideoView/libs/docore.jar
